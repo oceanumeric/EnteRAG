@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Review Upload and Search</title>
+    <title>AI-based Enterprise RAG</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -42,6 +42,7 @@
         }
         .form-group {
             margin-bottom: 15px;
+            overflow: hidden;
         }
         .form-group label {
             display: block;
@@ -69,7 +70,7 @@
             padding: 10px;
         }
         .chat-box {
-            height: 456px;
+            height: 256px;
             overflow-y: scroll;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -106,12 +107,30 @@
             background-color: #f1f1f1;
             text-align: left;
         }
+        #description {
+            display: block;
+            width: calc(100% - 30px); /* Adjust width as needed */
+            margin-bottom: 10px; /* Add bottom margin for spacing */
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Book Review Upload and Search</h1>
+    <h1>AI-based Enterprise RAG</h1>
+
+    <p>
+        Welcome to the AI-based Enterprise RAG! While creating a Retrieval Augmented Generation (RAG) 
+        chat system may seem straightforward, scaling it to handle over <strong>15 million documents</strong>
+        presents a significant challenge. This project demonstrates how to build a scalable RAG system.
+        It uses a huge dataset of book reviews from the <a href="https://www.goodreads.com/">Goodreads</a>.
+        <br><br>
+        <strong>Key Features:</strong>
+    </p>
+    <ul>
+        <li><strong>Document Upload:</strong> Users can upload documents using the upload feature.</li>
+        <li><strong>Query and Chat:</strong> Users can search and engage in conversations with documents through the chat interface.</li>
+    </ul>
 
     <div class="tabs">
         <div class="tab active" onclick="showTab('upload')">Upload Review</div>
@@ -120,20 +139,16 @@
 
     <div id="upload" class="tab-content active">
         <div class="form-group">
-            <h2>Upload Book Review</h2>
+            <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1654216226i/61215384.jpg" alt="Book Cover" style="float: left; width: 70px; height: auto; margin-right: 10px;">
+            <p>
+                Please add your review for book: The Return of the King, by <em>J.R.R. Tolkien</em>.
+            </p>
+            <p>
+                Here is the <a href="https://www.goodreads.com/book/show/61215384-the-return-of-the-king" target="_blank">link</a> to the book.
+            </p>
             <form id="upload-form">
-                <label for="title">Title:</label>
-                <input type="text" id="title" name="title" required>
-
-                <label for="author">Author:</label>
-                <input type="text" id="author" name="author" required>
-
-                <label for="description">Description:</label>
-                <textarea id="description" name="description" rows="4" required></textarea>
-
-                <label for="link">Link:</label>
-                <input type="url" id="link" name="link" required>
-
+                <label for="description">Your review:</label>
+                <textarea id="description" name="description" rows="10" required></textarea>
                 <button type="submit">Upload</button>
             </form>
         </div>
@@ -141,7 +156,6 @@
 
     <div id="search" class="tab-content">
         <div class="chat-container">
-            <h2>Search and Chat</h2>
             <div class="chat-box" id="chat-box"></div>
             <div class="chat-input">
                 <input type="text" id="chat-input" placeholder="Type your query here..." required>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Review Upload and Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tab {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .tab.active {
+            background-color: #007BFF;
+            color: white;
+            border-bottom: 1px solid #007BFF;
+        }
+        .tab-content {
+            display: none;
+            padding: 0;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-group button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .chat-container {
+            margin-top: 20px;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .chat-box {
+            height: 456px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        .chat-input {
+            display: flex;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+        }
+        .chat-input button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .message.user {
+            background-color: #e9f5ff;
+            text-align: right;
+        }
+        .message.bot {
+            background-color: #f1f1f1;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Book Review Upload and Search</h1>
+
+    <div class="tabs">
+        <div class="tab active" onclick="showTab('upload')">Upload Review</div>
+        <div class="tab" onclick="showTab('search')">Search and Chat</div>
+    </div>
+
+    <div id="upload" class="tab-content active">
+        <div class="form-group">
+            <h2>Upload Book Review</h2>
+            <form id="upload-form">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author" required>
+
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" rows="4" required></textarea>
+
+                <label for="link">Link:</label>
+                <input type="url" id="link" name="link" required>
+
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="search" class="tab-content">
+        <div class="chat-container">
+            <h2>Search and Chat</h2>
+            <div class="chat-box" id="chat-box"></div>
+            <div class="chat-input">
+                <input type="text" id="chat-input" placeholder="Type your query here..." required>
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showTab(tabId) {
+        // Hide all tab contents
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => content.classList.remove('active'));
+
+        // Remove active class from all tabs
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => tab.classList.remove('active'));
+
+        // Show the selected tab content and add active class to the clicked tab
+        document.getElementById(tabId).classList.add('active');
+        document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
+    }
+
+    document.getElementById('upload-form').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const title = document.getElementById('title').value;
+        const author = document.getElementById('author').value;
+        const description = document.getElementById('description').value;
+        const link = document.getElementById('link').value;
+
+        const response = await fetch('/documents', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, author, description, link })
+        });
+
+        if (response.ok) {
+            alert('Book review uploaded successfully!');
+            document.getElementById('upload-form').reset();
+        } else {
+            alert('Failed to upload book review.');
+        }
+    });
+
+    document.getElementById('chat-input').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            sendMessage();
+        }
+    });
+
+    async function sendMessage() {
+    const chatInput = document.getElementById('chat-input');
+    const query = chatInput.value;
+    if (!query) return;
+
+    const chatBox = document.getElementById('chat-box');
+    chatBox.innerHTML += `<div class="message user">${query}</div>`;
+    chatInput.value = '';
+
+    // Simulate a delay to mimic an API call
+    setTimeout(() => {
+        const response = {
+            answer: 'Here is your book and search results, based on your query. This is a long message to demonstrate the typing effect. The results include various books, authors, and relevant details that match your search criteria. Keep searching to find more detailed information.',
+            results: [
+                { title: 'Book 1', author: 'Author 1', link: 'Link 1' },
+                { title: 'Book 2', author: 'Author 2', link: 'Link 2' },
+                { title: 'Book 3', author: 'Author 3', link: 'Link 3' }
+            ]
+        };
+
+        const messageBot = document.createElement('div');
+        messageBot.classList.add('message', 'bot');
+        chatBox.appendChild(messageBot);
+
+        let index = 0;
+        const typingEffect = setInterval(() => {
+            messageBot.innerHTML += response.answer.charAt(index);
+            index++;
+            if (index >= response.answer.length) {
+                clearInterval(typingEffect);
+
+                // Display the search results with a typing effect
+                response.results.forEach((result, i) => {
+                    setTimeout(() => {
+                        const resultMessage = document.createElement('div');
+                        resultMessage.classList.add('message', 'bot');
+                        resultMessage.innerHTML = `Title: ${result.title}<br>Author: ${result.author}<br>Link: <a href="${result.link}" target="_blank">${result.link}</a>`;
+                        chatBox.appendChild(resultMessage);
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                    }, 100 * i);
+                });
+            }
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }, 50);
+    }, 1000);
+}
+
+</script>
+
+</body>
+</html>

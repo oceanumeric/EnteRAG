@@ -1,8 +1,10 @@
-from fastapi import FastAPI
-
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from api.routes.api import router as api_router
 from core.events import create_start_app_handler
-from core.config import API_PREFIX, DEBUG, PROJECT_NAME, VERSION
+from core.config import API_PREFIX, DEBUG, PROJECT_NAME, VERSION, TEMPLATE_DIR
 
 
 def get_application() -> FastAPI:
@@ -15,3 +17,10 @@ def get_application() -> FastAPI:
 
 
 app = get_application()
+
+
+templates = Jinja2Templates(directory=TEMPLATE_DIR)
+
+@app.get("/", response_class=HTMLResponse)
+async def read_root(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})

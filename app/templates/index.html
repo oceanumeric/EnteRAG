@@ -122,19 +122,22 @@
     <p>
         Welcome to the AI-based Enterprise RAG! While creating a Retrieval Augmented Generation (RAG) 
         chat system may seem straightforward, scaling it to handle over <strong>15 million documents</strong>
-        presents a significant challenge. This project demonstrates how to build a scalable RAG system.
+        presents a significant challenge. <em>This project demonstrates how to build a scalable RAG system.</em>
         It uses a huge dataset of book reviews from the <a href="https://www.goodreads.com/">Goodreads</a>.
         <br><br>
         <strong>Key Features:</strong>
     </p>
     <ul>
-        <li><strong>Document Upload:</strong> Users can upload documents using the upload feature.</li>
-        <li><strong>Query and Chat:</strong> Users can search and engage in conversations with documents through the chat interface.</li>
+        <li><strong>Review Upload:</strong> Users can upload review (could be any document) using the upload feature.</li>
+        <li>
+            <strong>Query and Chat:</strong> Users can search and engage in conversations with books through the chat interface.
+            It supports <em>semantic search</em> such as <em>funny scifi for a rainy afternoon</em>.
+        </li>
     </ul>
 
     <div class="tabs">
         <div class="tab active" onclick="showTab('upload')">Upload Review</div>
-        <div class="tab" onclick="showTab('search')">Search and Chat</div>
+        <div class="tab" onclick="showTab('search')">Query and Chat</div>
     </div>
 
     <div id="upload" class="tab-content active">

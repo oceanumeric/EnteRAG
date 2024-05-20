@@ -1,3 +1,5 @@
+# reference:
+# https://www.philschmid.de/optimize-sentence-transformers
 import click
 from pathlib import Path
 

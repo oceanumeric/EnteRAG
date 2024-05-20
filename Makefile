@@ -15,6 +15,10 @@ ifeq ($(MODEL_NAME),)
 MODEL_NAME := model.pkl
 endif
 
+ifeq ($(ONNX_FILE_PATH),)
+ONNX_FILE_PATH := ./ml/model/sentence-transformers/msmarco-distilbert-base-tas-b.onnx
+endif
+
 # Target section and Global definitions
 # -----------------------------------------------------------------------------
 .PHONY: all clean test install run deploy down
@@ -28,6 +32,13 @@ install: generate_dot_env
 	pip install --upgrade pip
 	pip install poetry
 	poetry install --with dev
+
+onnx:
+	@if [[ ! -d $(ONNX_FILE_PATH) ]]; then \
+		echo "Creating ONNX file path: $(ONNX_FILE_PATH)"; \
+		mkdir -p $(ONNX_FILE_PATH); \
+	fi
+	poetry run python ml/model/onnx_runtime.py $(ONNX_FILE_PATH)
 
 run:
 	PYTHONPATH=app/ poetry run uvicorn main:app --reload --host 0.0.0.0 --port 5758

@@ -1,4 +1,6 @@
+import click
 from typing import List
+from pathlib import Path
 
 from optimum.onnxruntime import ORTModelForFeatureExtraction
 from transformers import AutoTokenizer

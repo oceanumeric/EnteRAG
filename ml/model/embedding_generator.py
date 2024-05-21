@@ -1,3 +1,4 @@
+import os
 import timeit
 from typing import List
 from pathlib import Path
@@ -7,9 +8,11 @@ from transformers import AutoTokenizer
 from sentence_embedding_pipeline import SentenceEmbeddingPipeline
 
 
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
 class ONNXEmbeddingGenerator:
     def __init__(self):
-        self.onnx_path = "sentence-transformers/msmarco-distilbert-base-tas-b.onnx"
+        self.onnx_path = os.path.join(current_dir, "sentence-transformers/msmarco-distilbert-base-tas-b.onnx")
         self.model = ORTModelForFeatureExtraction.from_pretrained(self.onnx_path)
         self.tokenizer = AutoTokenizer.from_pretrained(self.onnx_path)
         self.pipeline = SentenceEmbeddingPipeline(model=self.model, tokenizer=self.tokenizer)

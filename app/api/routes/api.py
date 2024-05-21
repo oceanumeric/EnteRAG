@@ -1,6 +1,5 @@
 from fastapi import APIRouter
 
-from api.routes import predictor
 from app.api.routes import upload_review
 from app.api.routes import get_review_by_id
 from app.api.routes import semantic_query

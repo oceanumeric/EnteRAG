@@ -2,3 +2,4 @@ import sys
 
 sys.path.append(".")
 sys.path.append("./ml/model")
+sys.path.append("./app")

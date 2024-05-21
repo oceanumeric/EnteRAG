@@ -8,11 +8,14 @@ from transformers import AutoTokenizer
 from sentence_embedding_pipeline import SentenceEmbeddingPipeline
 
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
+def get_project_root():
+    return os.path.abspath(os.path.dirname(__file__))
+
+project_root = get_project_root()
 
 class ONNXEmbeddingGenerator:
     def __init__(self):
-        self.onnx_path = os.path.join(current_dir, "sentence-transformers/msmarco-distilbert-base-tas-b.onnx")
+        self.onnx_path = os.path.join(project_root, "sentence-transformers/msmarco-distilbert-base-tas-b.onnx")
         self.model = ORTModelForFeatureExtraction.from_pretrained(self.onnx_path)
         self.tokenizer = AutoTokenizer.from_pretrained(self.onnx_path)
         self.pipeline = SentenceEmbeddingPipeline(model=self.model, tokenizer=self.tokenizer)

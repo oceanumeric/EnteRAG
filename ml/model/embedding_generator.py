@@ -9,23 +9,6 @@ from sentence_embedding_pipeline import SentenceEmbeddingPipeline
 
 
 def get_project_root():
-    # Starting directory
-    current_dir = os.path.abspath(os.path.dirname(__file__))
-    
-    # List of marker files or directories that indicate the project root
-    markers = ['Makefile', 'pyproject.toml']
-
-    # Traverse up the directory tree until a marker is found
-    while current_dir:
-        if any(os.path.exists(os.path.join(current_dir, marker)) for marker in markers):
-            return current_dir
-        parent_dir = os.path.dirname(current_dir)
-        # Break if we've reached the root directory
-        if parent_dir == current_dir:
-            break
-        current_dir = parent_dir
-
-    # If no marker is found, default to the directory containing the current script
     return os.path.abspath(os.path.dirname(__file__))
 
 project_root = get_project_root()

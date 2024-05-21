@@ -22,4 +22,4 @@ jobs:
       - name: Test with pytest
         run: |
           make test
-        working-directory: ./EnteRAG
+        working-directory: ./

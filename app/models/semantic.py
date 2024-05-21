@@ -8,8 +8,7 @@ class Documents(BaseModel):
     link: str
     average_rating: float
     reviews_count: int
-    
-    
+
 
 class SemanticQueryResponse(BaseModel):
     documents: List[Documents]

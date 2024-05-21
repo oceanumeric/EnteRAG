@@ -7,7 +7,6 @@ from fastapi import APIRouter, HTTPException
 from models.upload import UploadReviewResponse
 
 
-
 from elasticsearch import Elasticsearch
 from ml.model.embedding_generator import ONNXEmbeddingGenerator
 
@@ -15,7 +14,7 @@ from ml.model.embedding_generator import ONNXEmbeddingGenerator
 # create bookreview class
 class BookReview(BaseModel):
     reviews: str
-    
+
 
 router = APIRouter()
 
@@ -31,7 +30,7 @@ def index_review(book_review: BookReview) -> str:
         str: a document id returned from elasticsearch
     """
     client = Elasticsearch("http://localhost:9200/")
-    
+
     # embedding reviews
     generator = ONNXEmbeddingGenerator()
     embeddings = generator.generate_embeddings(book_review.reviews)
@@ -43,10 +42,10 @@ def index_review(book_review: BookReview) -> str:
         "average_rating": 4.56,
         "reviews_count": 0,
         "reviews": book_review.reviews,
-        "embeddings":  embeddings[0].tolist()
+        "embeddings": embeddings[0].tolist(),
     }
     resp = client.index(index="goodreads_index", document=book_review)
-    
+
     document_id = resp["_id"]
     return document_id
 

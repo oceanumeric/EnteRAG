@@ -8,12 +8,14 @@ from models.get import GetReviewByIdResponse
 from elasticsearch import Elasticsearch
 
 
-    
-
 router = APIRouter()
 
 
-@router.get("/get_review_by_id/{document_id}", response_model=GetReviewByIdResponse, name="get:book-review")
+@router.get(
+    "/get_review_by_id/{document_id}",
+    response_model=GetReviewByIdResponse,
+    name="get:book-review",
+)
 async def get_review_by_id(document_id: str):
     """Get a book review by id from elasticsearch
 

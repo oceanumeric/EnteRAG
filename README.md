@@ -17,21 +17,8 @@ Unitl now, training has been finished but the indexing and searching part only u
 If you haven't tried [onnx](https://onnx.ai/) before, please check it out. It is a great way to deploy your models in production if you care about performance in production.
 
 
-### Data Source
 
-
-Originally, the data is downloaded from [Goodreads Book Graph Datasets](https://mengtingwan.github.io/data/goodreads.html). The author also provides the [code](https://github.com/MengtingWan/goodreads?tab=readme-ov-file) to download the data.
-
-I downloaded the data and uploaded it to my Google Cloud Storage bucket. Please let me know if you found above links are broken and I will provide you with the data.
-
-There are many tables in the dataset, but we are only interested in the following tables:
-
-- books:  detailed meta-data about 2.36M books
-- reviews: Complete 15.7m reviews (~5g) and 15M records with detailed review text
-
-
-
-## Development Requirements
+## Running Requirements
 
 - Python3.10.10
 - Docker (>24.0.5 should work)
@@ -51,19 +38,11 @@ make install
 
 ## Runnning Localhost
 
-1. construct [onnx](https://onnx.ai/) model
-    `make onnx`
-2. start [Elasticsearch](https://www.elastic.co/elasticsearch/)
-    `make elastic-up`
-3. index books
-    `make index-books`
-4. start FastAPI server
-    `make run`
+1. `make onnx`: construct [onnx](https://onnx.ai/) model
+2. `make elastic-up`: start [Elasticsearch](https://www.elastic.co/elasticsearch/)
+3. `make index-books`: index books
+4. `make run`: start FastAPI server
 
-
-## Deploy app
-
-TODO: Add deployment instructions
 
 ## Running Tests
 
@@ -78,6 +57,10 @@ TODO: Add deployment instructions
 ## Access Redocs Documentation
 
 > <http://localhost:8080/redoc>
+
+## Deploy app
+
+TODO: Add deployment instructions
 
 ## Project structure
 
@@ -118,3 +101,17 @@ It uses fastapi-cookiecutter template. The project structure is as follows:
     │   ├── test_api.py
     │   ├── test_elastic_search.py
     │   └── test_onnx_embedding.py
+
+
+
+### Data Source
+
+
+Originally, the data is downloaded from [Goodreads Book Graph Datasets](https://mengtingwan.github.io/data/goodreads.html). The author also provides the [code](https://github.com/MengtingWan/goodreads?tab=readme-ov-file) to download the data.
+
+I downloaded the data and uploaded it to my Google Cloud Storage bucket. Please let me know if you found above links are broken and I will provide you with the data.
+
+There are many tables in the dataset, but we are only interested in the following tables:
+
+- books:  detailed meta-data about 2.36M books
+- reviews: Complete 15.7m reviews (~5g) and 15M records with detailed review text

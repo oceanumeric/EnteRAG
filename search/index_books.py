@@ -1,7 +1,24 @@
+import numpy as np
 import pandas as pd
 from tqdm import tqdm
 from loguru import logger
 from elasticsearch import Elasticsearch
+
+
+def pretty_response(response):
+    if len(response["hits"]["hits"]) == 0:
+        print("Your search returned no results.")
+    else:
+        for hit in response["hits"]["hits"]:
+            id = hit["_id"]
+            score = hit["_score"]
+            title = hit["_source"]["title"]
+            author = hit["_source"]["authors"]
+            description = hit["_source"]["description"]
+            link = hit["_source"]["link"]
+            reviews_count = hit["_source"]["reviews_count"]
+            pretty_output = f"\nID: {id}\nTitle: {title}\nAuthor: {author}\nDescription: {description}\nLink: {link}\nScore: {score}\n Reviews Count: {reviews_count}\n"
+            print(pretty_output)
 
 
 def index_books():
@@ -35,6 +52,10 @@ def index_books():
 
     # read the data
     books = pd.read_csv("books_embeddings.csv")
+    
+    # convert the embeddings to numpy array
+    books['embeddings'] = books['embeddings'].apply(lambda x: np.fromstring(x[1:-1], sep=','))
+    
 
     operations = []
     # index the data
@@ -51,6 +72,8 @@ def index_books():
         }
 
         operations.append(book)
+        
+    print(len(operations))
 
     # we will add 1000 books at a time
     batch_size = 1000
@@ -63,6 +86,13 @@ def index_books():
         client.bulk(index="goodreads_index", operations=batch, refresh=True)
 
     logger.success(f"Indexed {len(books)} books successfully")
+
+    # run the first query
+    response = client.search(
+        index="goodreads_index", query={"match": {"title": {"query": "Blood"}}}
+    )
+    
+    pretty_response(response)
 
 
 if __name__ == "__main__":

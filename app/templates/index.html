@@ -121,7 +121,8 @@
 
     <p>
         Welcome to the AI-based Enterprise RAG! While creating a Retrieval Augmented Generation (RAG) 
-        chat system may seem straightforward, scaling it to handle over <strong>15 million documents</strong>
+        chat system may seem straightforward, scaling it to handle over <strong>1.5 million documents</strong>
+        <em>(around 2000 books of 300 pages)</em>
         presents a significant challenge. <em>This project demonstrates how to build a scalable RAG system.</em>
         It uses a huge dataset of book reviews from the <a href="https://www.goodreads.com/">Goodreads</a>.
         <br><br>
@@ -150,10 +151,18 @@
                 Here is the <a href="https://www.goodreads.com/book/show/61215384-the-return-of-the-king" target="_blank">link</a> to the book.
             </p>
             <form id="upload-form">
-                <label for="description">Your review:</label>
-                <textarea id="description" name="description" rows="10" required></textarea>
+                <label for="review-text">Your review:</label>
+                <textarea id="review-text" name="description" rows="10" required></textarea>
                 <button type="submit">Upload</button>
             </form>
+
+            <h3>Retrieve your review</h3>
+            <form id="retrieve-form">
+                <label for="document-id">Enter the document id:</label>
+                <input type="text" id="document-id" name="document-id" required>
+                <button type="submit">Retrieve</button>
+            </form>
+            <div id="review-display"></div>
         </div>
     </div>
 
@@ -161,7 +170,7 @@
         <div class="chat-container">
             <div class="chat-box" id="chat-box"></div>
             <div class="chat-input">
-                <input type="text" id="chat-input" placeholder="Type your query here..." required>
+                <input type="text" id="chat-input" placeholder="Semantic query here (like 'a romantic book for a sunday afternoon') ..." required>
                 <button onclick="sendMessage()">Send</button>
             </div>
         </div>
@@ -185,23 +194,55 @@
 
     document.getElementById('upload-form').addEventListener('submit', async function(event) {
         event.preventDefault();
-        const title = document.getElementById('title').value;
-        const author = document.getElementById('author').value;
-        const description = document.getElementById('description').value;
-        const link = document.getElementById('link').value;
+        
+        var textarea = document.getElementById('review-text');
+        var reviewText = textarea.value;
 
-        const response = await fetch('/documents', {
+        const response = await fetch('api/v1/upload_review', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title, author, description, link })
+            body: JSON.stringify({"reviews": reviewText}),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // alert document_id from response
+            alert('Here is the document_id:' + data.document_id);
+        })
+        .catch((error) => {
+            alert('Failed to upload book review.');
         });
 
-        if (response.ok) {
-            alert('Book review uploaded successfully!');
-            document.getElementById('upload-form').reset();
-        } else {
-            alert('Failed to upload book review.');
-        }
+        // Clear the textarea
+        textarea.value = '';
+    });
+
+    document.getElementById('retrieve-form').addEventListener('submit', function(event) {
+        // Prevent the default form submission
+        event.preventDefault();
+    
+        // Get the document id
+        var documentId = document.getElementById('document-id').value;
+    
+        // Send a GET request to the FastAPI endpoint
+        fetch('api/v1/get_review_by_id/' + documentId, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // Display the review
+            document.getElementById('review-display').innerText = data.reviews;
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    
+        // Clear the input field
+        document.getElementById('document-id').value = '';
     });
 
     document.getElementById('chat-input').addEventListener('keypress', function(event) {

@@ -46,6 +46,7 @@ onnx:
 # sudo chmod 666 /var/run/docker.sock
 elastic:
 	docker-compose -f search/docker-compose.yml up -d
+	python search/index_books.py
 
 run:
 	PYTHONPATH=app/ uvicorn main:app --reload --host 0.0.0.0 --port 8080

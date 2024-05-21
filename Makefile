@@ -26,7 +26,7 @@ endif
 all: clean test install run deploy down
 
 test:
-	poetry run pytest tests -vv --show-capture=all
+	pytest tests -vv --show-capture=all
 
 install: generate_dot_env
 	pip install --upgrade pip
@@ -38,11 +38,14 @@ onnx:
 		echo "Creating ONNX file path: $(ONNX_FILE_PATH)"; \
 		mkdir -p $(ONNX_FILE_PATH); \
 	fi
-	poetry run python ml/model/onnx_runtime.py $(ONNX_FILE_PATH)
+	python ml/model/onnx_runtime.py $(ONNX_FILE_PATH)
 
+# add elasticsearch to run docker-compose.yml in search/ folder
+elastic:
+	docker-compose -f search/docker-compose.yml up -d
 
 run:
-	PYTHONPATH=app/ poetry run uvicorn main:app --reload --host 0.0.0.0 --port 8080
+	PYTHONPATH=app/ uvicorn main:app --reload --host 0.0.0.0 --port 8080
 
 deploy: generate_dot_env
 	docker-compose build

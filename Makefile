@@ -40,9 +40,6 @@ onnx:
 	fi
 	poetry run python ml/model/onnx_runtime.py $(ONNX_FILE_PATH)
 
-# create elasticsearch node
-elastic:
-	docker-compose -f search/docker-compose.yml up -d
 
 run:
 	PYTHONPATH=app/ poetry run uvicorn main:app --reload --host 0.0.0.0 --port 8080

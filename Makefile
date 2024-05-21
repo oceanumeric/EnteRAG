@@ -41,6 +41,9 @@ onnx:
 	python ml/model/onnx_runtime.py $(ONNX_FILE_PATH)
 
 # add elasticsearch to run docker-compose.yml in search/ folder
+# for unbuntu server, need to install docker first
+# after install docker, might need to run the following command (not recommended)
+# sudo chmod 666 /var/run/docker.sock
 elastic:
 	docker-compose -f search/docker-compose.yml up -d
 

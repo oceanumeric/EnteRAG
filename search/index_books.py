@@ -23,6 +23,7 @@ def index_books():
             "average_rating": {"type": "float"},
             # we are using different names for text_review_counts
             "reviews_count": {"type": "integer"},
+            "reviews": {"type": "text"},
             "embeddings": {
                 "type": "dense_vector",
                 "dims": 768,
@@ -52,6 +53,8 @@ def index_books():
             "link": row["link"],
             "description": row["description"],
             "average_rating": row["average_rating"],
+            # use empty string for reviews as test data does not have review text
+            "reviews": "",
             "reviews_count": row["text_reviews_count"],
             "embeddings": row["embeddings"],
         }

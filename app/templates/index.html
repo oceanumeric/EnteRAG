@@ -70,7 +70,7 @@
             padding: 10px;
         }
         .chat-box {
-            height: 256px;
+            height: 356px;
             overflow-y: scroll;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -286,7 +286,7 @@
             clearInterval(typingEffect);
 
             // Display the search results
-            data.documents.slice(0, 3).forEach((result, i) => {
+            data.documents.slice(0, 5).forEach((result, i) => {
                 setTimeout(() => {
                     const resultMessage = document.createElement('div');
                     resultMessage.classList.add('message', 'bot');
@@ -297,7 +297,7 @@
             });
         }
         chatBox.scrollTop = chatBox.scrollHeight;
-    }, 50);
+    }, 25);
 }
 
 </script>

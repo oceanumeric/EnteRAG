@@ -5,7 +5,7 @@ services:
     image: elasticsearch:8.13.4
     environment:
       - discovery.type=single-node
-      - ES_JAVA_OPTS=-Xms6g -Xmx6g
+      - ES_JAVA_OPTS=-Xms3g -Xmx3g
       - xpack.security.enabled=false
       - http.max_content_length=2000mb
     volumes:

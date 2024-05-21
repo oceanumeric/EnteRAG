@@ -1,6 +1,7 @@
 import pytest
 from ml.model.embedding_generator import ONNXEmbeddingGenerator
 
+
 def test_onnx_embeddings():
     generator = ONNXEmbeddingGenerator()
     embeddings = generator.generate_embeddings(["hello world"])

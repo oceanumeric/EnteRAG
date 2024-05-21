@@ -5,21 +5,6 @@ from loguru import logger
 from elasticsearch import Elasticsearch
 
 
-def pretty_response(response):
-    if len(response["hits"]["hits"]) == 0:
-        print("Your search returned no results.")
-    else:
-        for hit in response["hits"]["hits"]:
-            id = hit["_id"]
-            score = hit["_score"]
-            title = hit["_source"]["title"]
-            author = hit["_source"]["authors"]
-            description = hit["_source"]["description"]
-            link = hit["_source"]["link"]
-            reviews_count = hit["_source"]["reviews_count"]
-            pretty_output = f"\nID: {id}\nTitle: {title}\nAuthor: {author}\nDescription: {description}\nLink: {link}\nScore: {score}\n Reviews Count: {reviews_count}\n"
-            print(pretty_output)
-
 
 def index_books():
     # for the demo, we will not set up secure connection
@@ -86,14 +71,7 @@ def index_books():
         client.bulk(index="goodreads_index", operations=batch, refresh=True)
 
     logger.success(f"Indexed {len(books)} books successfully")
-
-    # run the first query
-    response = client.search(
-        index="goodreads_index", query={"match": {"title": {"query": "Blood"}}}
-    )
     
-    pretty_response(response)
-
-
+    
 if __name__ == "__main__":
     index_books()

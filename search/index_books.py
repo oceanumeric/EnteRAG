@@ -1,8 +1,13 @@
+import os
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
 from loguru import logger
 from elasticsearch import Elasticsearch
+
+
+def get_root_path():
+    return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 
@@ -37,7 +42,7 @@ def index_books():
     client.indices.create(index="goodreads_index", mappings=mappings)
 
     # read the data
-    books = pd.read_csv("books_embeddings.csv")
+    books = pd.read_csv(os.path.join(get_root_path(), "search/books_embeddings.csv"))
     
     # convert the embeddings to numpy array
     books['embeddings'] = books['embeddings'].apply(lambda x: np.fromstring(x[1:-1], sep=','))

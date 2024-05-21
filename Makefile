@@ -50,7 +50,7 @@ elastic-up:
 elastic-down:
 	docker-compose -f search/docker-compose.yml down
 
-index:
+index-books:
 	python search/index_books.py
 
 run:

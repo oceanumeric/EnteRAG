@@ -1,11 +1,40 @@
-# EnteRAG
+# AI-powered Enterprise RAG
 
-AI-powered Enterprise RAG
+This project is a simple implementation of an AI-powered Enterprise RAG (Retrieval-augmented generation). It uses a pre-trained model to generate embeddings for books and then uses Elasticsearch to index and search for books by using multi-modal search:
+
+- traditional text search
+- consine similarity search using embeddings
+
+The final goal is to index 1.5M books and provide a simple API to search for books using the above-mentioned methods. This project is for an interview assignment, which could show:
+
+- My data engineering skills, check [ETL.ipynb](notebooks/ETL.ipynb)
+    - you need good data engineering skills to handle 1.5M records, meaning you can train the model, index the data, and search for books in a reasonable time
+- My machine learning skills, check [sentences_embeddings.ipynb](notebooks/sentences_embeddings.ipynb) and [onnx_runtime.ipynb](notebooks/onnx_runtime.ipynb)
+- My software engineering skills, check the project structure and code quality
+
+Unitl now, training has been finished but the indexing and searching part only uses a small sample dataset as I want the interviewer to run the code on their machine and see the results. It takes time to share a parquet file with 1.5M records and its embeddings.
+
+If you haven't tried [onnx](https://onnx.ai/) before, please check it out. It is a great way to deploy your models in production if you care about performance in production.
+
+
+### Data Source
+
+
+Originally, the data is downloaded from [Goodreads Book Graph Datasets](https://mengtingwan.github.io/data/goodreads.html). The author also provides the [code](https://github.com/MengtingWan/goodreads?tab=readme-ov-file) to download the data.
+
+I downloaded the data and uploaded it to my Google Cloud Storage bucket. Please let me know if you found above links are broken and I will provide you with the data.
+
+There are many tables in the dataset, but we are only interested in the following tables:
+
+- books:  detailed meta-data about 2.36M books
+- reviews: Complete 15.7m reviews (~5g) and 15M records with detailed review text
+
+
 
 ## Development Requirements
 
 - Python3.10.10
-- Docker
+- Docker (>24.0.5 should work)
 - Docker-compose
 
 

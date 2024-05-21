@@ -10,7 +10,7 @@ def test_connection():
     response = client.search(
         index="goodreads_index",
         size=5,
-        query={"match": {"title": {"query": "Harry Potter"}}},
+        query={"match": {"title": {"query": "The Return of the King"}}},
     )
 
     assert response["hits"]["total"]["value"] > 0

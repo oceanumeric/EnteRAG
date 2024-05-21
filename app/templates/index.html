@@ -261,42 +261,43 @@
     chatBox.innerHTML += `<div class="message user">${query}</div>`;
     chatInput.value = '';
 
-    // Simulate a delay to mimic an API call
-    setTimeout(() => {
-        const response = {
-            answer: 'Here is your book and search results, based on your query. This is a long message to demonstrate the typing effect. The results include various books, authors, and relevant details that match your search criteria. Keep searching to find more detailed information.',
-            results: [
-                { title: 'Book 1', author: 'Author 1', link: 'Link 1' },
-                { title: 'Book 2', author: 'Author 2', link: 'Link 2' },
-                { title: 'Book 3', author: 'Author 3', link: 'Link 3' }
-            ]
-        };
+    const response = await fetch('api/v1/semantic_query', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ query: query })
+    });
 
-        const messageBot = document.createElement('div');
-        messageBot.classList.add('message', 'bot');
-        chatBox.appendChild(messageBot);
+    // Parse the response as JSON
+    const data = await response.json();
 
-        let index = 0;
-        const typingEffect = setInterval(() => {
-            messageBot.innerHTML += response.answer.charAt(index);
-            index++;
-            if (index >= response.answer.length) {
-                clearInterval(typingEffect);
+    const messageBot = document.createElement('div');
+    messageBot.classList.add('message', 'bot');
+    chatBox.appendChild(messageBot);
 
-                // Display the search results with a typing effect
-                response.results.forEach((result, i) => {
-                    setTimeout(() => {
-                        const resultMessage = document.createElement('div');
-                        resultMessage.classList.add('message', 'bot');
-                        resultMessage.innerHTML = `Title: ${result.title}<br>Author: ${result.author}<br>Link: <a href="${result.link}" target="_blank">${result.link}</a>`;
-                        chatBox.appendChild(resultMessage);
-                        chatBox.scrollTop = chatBox.scrollHeight;
-                    }, 100 * i);
-                });
-            }
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }, 50);
-    }, 1000);
+    const initialMessage = "Here is your book and search results, based on your query. It is important to know that the search results are retrieved in a semantic way. Meaning, we used the content embeddings to find the most relevant books based on your query.";
+
+    let index = 0;
+    const typingEffect = setInterval(() => {
+        messageBot.innerHTML += initialMessage.charAt(index);
+        index++;
+        if (index >= initialMessage.length) {
+            clearInterval(typingEffect);
+
+            // Display the search results
+            data.documents.slice(0, 3).forEach((result, i) => {
+                setTimeout(() => {
+                    const resultMessage = document.createElement('div');
+                    resultMessage.classList.add('message', 'bot');
+                    resultMessage.innerHTML = `Title: ${result.title}<br>Authors: ${result.authors}<br>Link: <a href="${result.link}" target="_blank">${result.link}</a> <br>Rating: ${result.average_rating} <br>No. of reviews: ${result.reviews_count} <br>`;
+                    chatBox.appendChild(resultMessage);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }, 1000 * i);
+            });
+        }
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }, 50);
 }
 
 </script>

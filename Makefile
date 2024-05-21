@@ -44,8 +44,13 @@ onnx:
 # for unbuntu server, need to install docker first
 # after install docker, might need to run the following command (not recommended)
 # sudo chmod 666 /var/run/docker.sock
-elastic:
+elastic-up:
 	docker-compose -f search/docker-compose.yml up -d
+
+elastic-down:
+	docker-compose -f search/docker-compose.yml down
+
+index:
 	python search/index_books.py
 
 run:

@@ -2,12 +2,12 @@
 
 Try for yourself: http://20.218.162.1/
 
-This project is a simple implementation of an AI-powered Enterprise RAG (Retrieval-augmented generation). It uses a pre-trained model to generate embeddings for books and then uses Elasticsearch to index and search for books by using multi-modal search:
+This project is the implementation of an AI-powered Enterprise RAG (Retrieval-augmented generation). It uses a pre-trained model to generate embeddings for books and then uses Elasticsearch to index and search for books by using multi-modal search:
 
 - traditional text search
 - consine similarity search using embeddings
 
-The final goal is to index 1.5M books and provide a simple API to search for books using the above-mentioned methods. This project is for an interview assignment, which could show:
+This project built for many interviews, which could show:
 
 - My **data engineering skills**, check [ETL.ipynb](notebooks/ETL.ipynb)
     - you need good data engineering skills to handle 1.5M records, meaning you can train the model, index the data, and search for books in a reasonable time

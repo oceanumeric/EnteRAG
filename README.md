@@ -5,9 +5,7 @@
 <img src="https://github.com/oceanumeric/EnteRAG/blob/master/app/static/images/enterag-logo.png?raw=true" width="200" height="200" />
 </p>
 
-Try for yourself: http://20.218.162.1/
-
-This project built for many interviews, which could show:
+This project is built for many interviews during my job hunting process, which could show:
 
 - My **data engineering skills**, check [ETL.ipynb](notebooks/ETL.ipynb)
     - you need good data engineering skills to handle 1.5M records, meaning you can train the model, index the data, and search for books in a reasonable time

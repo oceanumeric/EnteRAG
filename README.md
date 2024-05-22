@@ -2,17 +2,17 @@
 
 Try for yourself: http://20.218.162.1/
 
-This project is the implementation of an AI-powered Enterprise RAG (Retrieval-augmented generation). It uses a pre-trained model to generate embeddings for books and then uses Elasticsearch to index and search for books by using multi-modal search:
-
-- traditional text search
-- consine similarity search using embeddings
-
 This project built for many interviews, which could show:
 
 - My **data engineering skills**, check [ETL.ipynb](notebooks/ETL.ipynb)
     - you need good data engineering skills to handle 1.5M records, meaning you can train the model, index the data, and search for books in a reasonable time
 - My **machine learning skills**, check [sentence_embedding.ipynb](notebooks/sentence_embedding.ipynb) and [onnx_runtime.ipynb](notebooks/onnx_runtime.ipynb)
 - My **software engineering skills in production envrionment**, check the project structure and code quality
+
+This project is the implementation of an AI-powered Enterprise RAG (Retrieval-augmented generation). It uses a pre-trained model to generate embeddings for books and then uses Elasticsearch to index and search for books by using multi-modal search:
+
+- traditional text search
+- consine similarity search using embeddings
 
 Unitl now, training has been finished but the indexing and searching part only uses a small sample dataset as I want the interviewer to run the code on their machine and see the results. It takes time to share a parquet file with 1.5M records and its embeddings.
 

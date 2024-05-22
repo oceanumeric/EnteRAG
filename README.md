@@ -1,5 +1,7 @@
 # AI-powered Enterprise RAG
 
+Try for yourself: http://20.218.162.1/
+
 This project is a simple implementation of an AI-powered Enterprise RAG (Retrieval-augmented generation). It uses a pre-trained model to generate embeddings for books and then uses Elasticsearch to index and search for books by using multi-modal search:
 
 - traditional text search

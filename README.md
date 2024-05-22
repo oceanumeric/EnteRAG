@@ -9,10 +9,10 @@ This project is a simple implementation of an AI-powered Enterprise RAG (Retriev
 
 The final goal is to index 1.5M books and provide a simple API to search for books using the above-mentioned methods. This project is for an interview assignment, which could show:
 
-- My data engineering skills, check [ETL.ipynb](notebooks/ETL.ipynb)
+- My **data engineering skills**, check [ETL.ipynb](notebooks/ETL.ipynb)
     - you need good data engineering skills to handle 1.5M records, meaning you can train the model, index the data, and search for books in a reasonable time
-- My machine learning skills, check [sentence_embedding.ipynb](notebooks/sentence_embedding.ipynb) and [onnx_runtime.ipynb](notebooks/onnx_runtime.ipynb)
-- My software engineering skills, check the project structure and code quality
+- My **machine learning skills**, check [sentence_embedding.ipynb](notebooks/sentence_embedding.ipynb) and [onnx_runtime.ipynb](notebooks/onnx_runtime.ipynb)
+- My **software engineering skills in production envrionment**, check the project structure and code quality
 
 Unitl now, training has been finished but the indexing and searching part only uses a small sample dataset as I want the interviewer to run the code on their machine and see the results. It takes time to share a parquet file with 1.5M records and its embeddings.
 

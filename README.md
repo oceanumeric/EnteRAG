@@ -13,6 +13,7 @@ This project is the implementation of an AI-powered Enterprise RAG (Retrieval-au
 
 - traditional text search
 - 🧮 consine similarity search using embeddings (meaning books are recommended based on not just key words but semantic, user preferences, etc. which are all embedded as a vector)
+- I did not choose a vector database as elasticsearch provides vector storage and search capabilities. It is not as good as a vector database but it is good enough for this project. [Milvus](https://milvus.io/) is a good alternative if you want to use a vector database.
 
 Unitl now, training has been finished but the indexing and searching part only uses a small sample dataset as I want the interviewer to run the code on their machine and see the results. It takes time to share a parquet file with 1.5M records and its embeddings.
 

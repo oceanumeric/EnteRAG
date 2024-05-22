@@ -4,7 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from api.routes.api import router as api_router
 from core.events import create_start_app_handler
-from core.config import API_PREFIX, DEBUG, PROJECT_NAME, VERSION, TEMPLATE_DIR
+from core.config import API_PREFIX, DEBUG, PROJECT_NAME, VERSION, TEMPLATE_DIR, STATIC_DIR
 
 
 def get_application() -> FastAPI:
@@ -17,6 +17,8 @@ def get_application() -> FastAPI:
 
 
 app = get_application()
+
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
 templates = Jinja2Templates(directory=TEMPLATE_DIR)

@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀AI-based Enterprise RAG💪</title>
+    <title>🚀AI-powered Enterprise RAG💪</title>
     <style>
         body {
+            background: linear-gradient(to bottom, #e39293, #ffa6a8);
             font-family: Arial, sans-serif;
             margin: 20px;
         }
@@ -29,7 +30,7 @@
             transition: background-color 0.3s, color 0.3s;
         }
         .tab.active {
-            background-color: #007BFF;
+            background-color: #316dad;
             color: white;
             border-bottom: 1px solid #007BFF;
         }
@@ -70,7 +71,8 @@
             padding: 10px;
         }
         .chat-box {
-            height: 356px;
+            background-color: #f1f1f1;
+            height: 200px;
             overflow-y: scroll;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -81,7 +83,8 @@
             display: flex;
         }
         .chat-input input {
-            flex: 1;
+            flex-grow: 1;
+            flex-direction: column;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px 0 0 5px;
@@ -112,36 +115,97 @@
             width: calc(100% - 30px); /* Adjust width as needed */
             margin-bottom: 10px; /* Add bottom margin for spacing */
         }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .links a {
+            margin-left: 15px;
+            text-decoration: none;
+            color: #555555; /* You can customize the link color */
+        }
+        
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .image-container {
+            text-align: center; /* Center the image */
+            margin-bottom: 20px; /* Add some margin below the image */
+        }
+
+        .image-wrapper {
+            position: relative; /* Set position to relative */
+            display: inline-block; /* Make the container inline-block */
+        }
+        
+        .image-container img {
+            width: 200px; /* Adjust the width as needed */
+            height: 200px; /* Adjust the height as needed */
+        }
+        
+        /* Horizontal line styles */
+        .separator {
+            position: absolute; /* Position the separator absolutely */
+            border: 0; /* Remove default border */
+            border-top: 1px solid #ccc; /* Gray color */
+            width: 100%; /* Full width of the container */
+            top:97%; /* Position from the top */
+            transform: translateY(-50%); /* Center vertically */
+        }
+
+        .text-section {
+            text-align: center; /* Center the text */
+            max-width: 400px; /* Adjust the maximum width as needed */
+            margin: 0 auto; /* Center the section horizontally */
+        }
+        
+        .text-section p {
+            font-size: 17px; /* Adjust the font size as needed */
+            line-height: 1.5; /* Adjust the line height as needed */
+        }
+
+        .data-source {
+            width:30%;
+            /* make it centered */
+            margin: 0 auto;
+            padding: 10px;
+            margin-top: 10px; /* Adjust margin as needed */
+        }
+        
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>AI-based Enterprise RAG</h1>
-    <a href="https://github.com/oceanumeric/EnteRAG" target="_blank">GitHub Repository</a>
-    <p>
-        Welcome to the AI-based Enterprise RAG! While creating a Retrieval Augmented Generation (RAG) 
-        chat system may seem straightforward, scaling it to handle over <strong>1.5 million documents</strong>
-        <em>(around 2000 books of 300 pages)</em>
-        presents a significant challenge. <em>This project demonstrates how to build a scalable RAG system.</em>
-        It uses a huge dataset of book reviews from the <a href="https://www.goodreads.com/">Goodreads</a>.
-        <br><br>
-        <strong>Key Features:</strong>
-    </p>
-    <ul>
-        <li><strong>Review Upload:</strong> Users can upload review (could be any document) using the upload feature.</li>
-        <li>
-            <strong>Query and Chat:</strong> Users can search and engage in conversations with books through the chat interface.
-            It supports <em>semantic search</em> such as <em>funny scifi for a rainy afternoon</em>.
-        </li>
-    </ul>
-
-    <div class="tabs">
-        <div class="tab active" onclick="showTab('upload')">Upload Review</div>
-        <div class="tab" onclick="showTab('search')">Query and Chat</div>
+    <div class="header-container">
+        <h2>ScaleRAG</h2>
+        <div class="links">
+            <a href="https://github.com/oceanumeric/EnteRAG" target="_blank">GitHub</a>
+            <a href="https://oceanumeric.github.io/" target="_blank">Website</a>
+        </div>
     </div>
 
-    <div id="upload" class="tab-content active">
+    <div class="image-container">
+        <div class="image-wrapper">
+            <img src="/static/images/enterag-logo.png" alt="Description of image">
+            <hr class="separator"> <!-- Horizontal line -->
+        </div>
+    </div>
+
+    <div class="text-section">
+        <p>ScaleRAG is a scalable retrieval augmented generation app for book recommendations based on 📕 <em>semantic search</em> 📚.</p>
+    </div>
+
+    <div class="tabs">
+        <div class="tab active" onclick="showTab('search')">Query and Chat</div>
+        <div class="tab" onclick="showTab('upload')">Upload Review</div>
+    </div>
+
+    <div id="upload" class="tab-content">
         <div class="form-group">
             <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1654216226i/61215384.jpg" alt="Book Cover" style="float: left; width: 70px; height: auto; margin-right: 10px;">
             <p>
@@ -166,7 +230,8 @@
         </div>
     </div>
 
-    <div id="search" class="tab-content">
+
+    <div id="search" class="tab-content active">
         <div class="chat-container">
             <div class="chat-box" id="chat-box"></div>
             <div class="chat-input">
@@ -175,6 +240,11 @@
             </div>
         </div>
     </div>
+
+    <div class="data-source">
+        <p>A project from @oceanumeric</p>
+    </div>
+    
 </div>
 
 <script>

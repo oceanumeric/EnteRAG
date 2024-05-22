@@ -1,7 +1,8 @@
-# AI-powered Enterprise RAG (conversational recommendations on books)
+# AI-powered Enterprise RAG
 
-<p align='center'>
-<img src="https://github.com/oceanumeric/EnteRAG/blob/master/app/static/images/enterag-logo.png?raw=true" width="200" height="00" />
+
+<p align="center">
+<img src="https://github.com/oceanumeric/EnteRAG/blob/master/app/static/images/enterag-logo.png?raw=true" width="200" height="200" />
 </p>
 
 Try for yourself: http://20.218.162.1/

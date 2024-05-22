@@ -1,4 +1,4 @@
-# AI-powered Enterprise RAG
+# AI-powered Enterprise RAG (conversational recommendations on books)
 
 Try for yourself: http://20.218.162.1/
 
@@ -12,7 +12,7 @@ This project built for many interviews, which could show:
 This project is the implementation of an AI-powered Enterprise RAG (Retrieval-augmented generation). It uses a pre-trained model to generate embeddings for books and then uses Elasticsearch to index and search for books by using multi-modal search:
 
 - traditional text search
-- consine similarity search using embeddings
+- 🧮 consine similarity search using embeddings (meaning books are recommended based on not just key words but semantic, user preferences, etc. which are all embedded as a vector)
 
 Unitl now, training has been finished but the indexing and searching part only uses a small sample dataset as I want the interviewer to run the code on their machine and see the results. It takes time to share a parquet file with 1.5M records and its embeddings.
 

@@ -42,7 +42,7 @@ make install
 
 1. `make onnx`: construct [onnx](https://onnx.ai/) model
 2. `make elastic-up`: start [Elasticsearch](https://www.elastic.co/elasticsearch/)
-3. `make index-books`: index books
+3. `make index-books`: index books (_might need to run this several times as elasticsearch might not be ready_)
 4. `make run`: start FastAPI server
 
 

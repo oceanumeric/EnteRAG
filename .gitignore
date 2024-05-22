@@ -93,3 +93,4 @@ target/
 
 venv
 ml/model/sentence-transformers
+search/index_full_datasets.py

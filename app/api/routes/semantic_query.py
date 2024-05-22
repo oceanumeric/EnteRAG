@@ -35,18 +35,18 @@ def semantic_search(query: Query) -> List[dict]:
     # search for similar documents
     response = client.search(
         index="goodreads_index",
-        size=5,
-        query={
-            "multi_match": {
-                "query": query.query,
-                "fields": ["title", "authors", "description"],
-            }
-        },
+        # size=5,
+        # query={
+        #     "multi_match": {
+        #         "query": query.query,
+        #         "fields": ["title", "authors", "description"],
+        #     }
+        # },
         knn={
             "field": "embeddings",
             "query_vector": embeddings[0].tolist(),
             "k": 5,
-            "num_candidates": 20,
+            "num_candidates": 30,
         },
     )
 

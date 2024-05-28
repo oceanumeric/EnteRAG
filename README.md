@@ -5,14 +5,8 @@
 <img src="https://github.com/oceanumeric/EnteRAG/blob/master/app/static/images/enterag-logo.png?raw=true" width="200" height="200" />
 </p>
 
-This project is built for many interviews during my job hunting process, which could show:
 
-- My **data engineering skills**, check [ETL.ipynb](notebooks/ETL.ipynb)
-    - you need good data engineering skills to handle 1.5M records, meaning you can train the model, index the data, and search for books in a reasonable time
-- My **machine learning skills**, check [sentence_embedding.ipynb](notebooks/sentence_embedding.ipynb) and [onnx_runtime.ipynb](notebooks/onnx_runtime.ipynb)
-- My **software engineering skills in production envrionment**, check the project structure and code quality
-
-This project is the implementation of an AI-powered Enterprise RAG (Retrieval-augmented generation). It uses a pre-trained model to generate embeddings for books and then uses Elasticsearch to index and search for books by using multi-modal search:
+This project is my side projec of the implementation of an AI-powered Enterprise RAG (Retrieval-augmented generation). It uses a pre-trained model to generate embeddings for books and then uses Elasticsearch to index and search for books by using multi-modal search:
 
 - traditional text search
 - 🧮 consine similarity search using embeddings (meaning books are recommended based on not just key words but semantic, user preferences, etc. which are all embedded as a vector)
